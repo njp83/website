@@ -4,40 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tic-Tac-Toe</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      margin-top: 50px;
-    }
-    #board {
-      display: grid;
-      grid-template-columns: repeat(3, 100px);
-      grid-template-rows: repeat(3, 100px);
-      gap: 5px;
-    }
-    .cell {
-      width: 100px;
-      height: 100px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 2em;
-      border: 2px solid #333;
-      cursor: pointer;
-    }
-    #message {
-      margin-top: 20px;
-      font-size: 1.2em;
-    }
-    button {
-      margin-top: 10px;
-      padding: 8px 16px;
-      font-size: 1em;
-    }
-  </style>
+  <link rel="stylesheet" href="styles.css">
 </head>
 <body>
 
@@ -58,60 +25,7 @@
   <div id="message">Player X's turn</div>
   <button id="reset">Restart Game</button>
 
-  <script>
-    const board = document.querySelectorAll('.cell');
-    const message = document.getElementById('message');
-    const resetBtn = document.getElementById('reset');
-
-    let currentPlayer = 'X';
-    let gameState = Array(9).fill('');
-
-    const winningCombinations = [
-      [0,1,2], [3,4,5], [6,7,8], // rows
-      [0,3,6], [1,4,7], [2,5,8], // columns
-      [0,4,8], [2,4,6]           // diagonals
-    ];
-
-    function checkWinner() {
-      for (let combo of winningCombinations) {
-        const [a,b,c] = combo;
-        if (gameState[a] && gameState[a] === gameState[b] && gameState[a] === gameState[c]) {
-          return gameState[a];
-        }
-      }
-      return gameState.includes('') ? null : 'Draw';
-    }
-
-    function handleClick(e) {
-      const index = e.target.dataset.index;
-      if (gameState[index] !== '') return;
-
-      gameState[index] = currentPlayer;
-      e.target.textContent = currentPlayer;
-
-      const winner = checkWinner();
-      if (winner) {
-        message.textContent = winner === 'Draw' ? "It's a draw!" : `Player ${winner} wins!`;
-        board.forEach(cell => cell.removeEventListener('click', handleClick));
-      } else {
-        currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-        message.textContent = `Player ${currentPlayer}'s turn`;
-      }
-    }
-
-    board.forEach(cell => cell.addEventListener('click', handleClick));
-
-    resetBtn.addEventListener('click', () => {
-      gameState = Array(9).fill('');
-      currentPlayer = 'X';
-      message.textContent = `Player X's turn`;
-      board.forEach(cell => {
-        cell.textContent = '';
-        cell.addEventListener('click', handleClick);
-      });
-    });
-  </script>
-
+  <script src="script.js" defer></script>
 </body>
 </html>
 
